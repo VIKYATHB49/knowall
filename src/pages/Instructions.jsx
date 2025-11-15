@@ -17,9 +17,9 @@ const LanguageSelector = () => {
       value={i18n.language.split("-")[0]}
     >
       <option value="en">English</option>
-      <option value="hi">हिन्दी (Hindi)</option>
-      <option value="te">తెలుగు (Telugu)</option>
-      <option value="ja">日本語 (Japanese)</option>
+      <option value="hi">हिन्दी </option>
+      <option value="te">తెలుగు</option>
+      <option value="ja">日本語</option>
     </select>
   );
 };

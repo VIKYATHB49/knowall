@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
+import '../assets/css/Instructions.css';  
+
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();

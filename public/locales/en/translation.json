@@ -11,7 +11,7 @@
   "instructionChange": "To change your answer, click on a different option.",
   "instructionSectionNav": "After clicking <1>Save and Next</1> on the last question in a section, you’ll move to the next section automatically.",
   "instructionCoding": "For <1>Coding Questions</1>, click <2>Submit Code</2> or the question will be marked as unattempted.",
-  "instructionTestDetails": "<1>Test Details:</1> {{questions}} Questions | {{marks}} Marks | Duration: {{time}}&nbsp;mins",
+  "instructionTestDetails": "<1>Test Details:</1> {{questions}} Questions | {{marks}} Marks | Duration: {{time}} mins",
   "declaration": "I have read and understood the instructions. All computer hardware allotted to me is in proper working condition. I declare that I am not in possession of or using any prohibited gadget like a mobile phone, Bluetooth device, or any material not allowed inside the examination hall.",
   "startAssessment": "Start Assessment"
 }

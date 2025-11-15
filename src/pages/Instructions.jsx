@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import '../assets/css/Instructions.css';  
-
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
+import "../assets/css/Instructions.css";
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -15,7 +14,7 @@ const LanguageSelector = () => {
     <select
       className="language-dropdown"
       onChange={changeLanguage}
-      value={i18n.language.split('-')[0]}
+      value={i18n.language.split("-")[0]}
     >
       <option value="en">English</option>
       <option value="hi">हिन्दी (Hindi)</option>
@@ -41,76 +40,47 @@ const Instruction = () => {
         el.webkitRequestFullscreen ||
         el.msRequestFullscreen;
 
-      (fullscreen ? fullscreen.call(el) : Promise.resolve())
-        .finally(() => {
-          const basePath = location.pathname.replace('/instructions', '');
-          navigate(`${basePath}/exam`, { state: test });
-        });
+      (fullscreen ? fullscreen.call(el) : Promise.resolve()).finally(() => {
+        const basePath = location.pathname.replace("/instructions", "");
+        navigate(`${basePath}/exam`, { state: test });
+      });
     }
   };
 
   if (!test) {
-    return <p style={{ textAlign: 'center', marginTop: '20px' }}>{t('noTestData')}</p>;
+    return (
+      <p style={{ textAlign: "center", marginTop: "20px" }}>
+        {t("noTestData")}
+      </p>
+    );
   }
 
   return (
     <div className="content">
-
-      {/* ONLY DROPDOWN CSS */}
-      <style>{`
-        .header-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-        }
-
-        .language-dropdown {
-          width: 160px;
-          padding: 8px 12px;
-          font-size: 14px;
-          border-radius: 6px;
-          border: 1px solid #ccc;
-          background: #fff;
-        }
-
-        @media (max-width: 768px) {
-          .header-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-          }
-
-          .language-dropdown {
-            width: 100%;
-            font-size: 15px;
-          }
-        }
-      `}</style>
-
-      {/* HEADER: Title left + Dropdown right */}
+      {/* HEADER */}
       <div className="header-row">
-        <h2>{t('instructionsTitle')}</h2>
+        <h2>{t("instructionsTitle")}</h2>
         <LanguageSelector />
       </div>
 
+      {/* INSTRUCTION LIST */}
       <ol>
         <li>
           <Trans i18nKey="instructionDate" values={{ date: test.date }}>
             This assessment is scheduled on <b>{test.date}</b>.
           </Trans>
         </li>
-        <li>{t('instructionTimer')}</li>
-        <li>{t('instructionPalette')}</li>
-        <li>{t('instructionPaletteNav')}</li>
+        <li>{t("instructionTimer")}</li>
+        <li>{t("instructionPalette")}</li>
+        <li>{t("instructionPaletteNav")}</li>
         <li>
           <Trans i18nKey="instructionSaveNext">
             Click <b>Save and Next</b> to save your answer.
           </Trans>
         </li>
-        <li>{t('instructionSelect')}</li>
-        <li>{t('instructionDeselect')}</li>
-        <li>{t('instructionChange')}</li>
+        <li>{t("instructionSelect")}</li>
+        <li>{t("instructionDeselect")}</li>
+        <li>{t("instructionChange")}</li>
         <li>
           <Trans i18nKey="instructionSectionNav">
             After clicking <b>Save and Next</b>, you move to the next section.
@@ -127,31 +97,38 @@ const Instruction = () => {
             values={{
               questions: test.questions,
               marks: test.marks,
-              time: test.time
+              time: test.time,
             }}
           >
-            <b>Test Details:</b> {test.questions} Questions | {test.marks} Marks | Duration: {test.time} mins
+            <b>Test Details:</b> {test.questions} Questions | {test.marks} Marks
+            | Duration: {test.time} mins
           </Trans>
         </li>
       </ol>
 
       <hr />
 
-      <div>
+      {/* DECLARATION CHECKBOX */}
+      <div className="declaration-row">
         <input
           type="checkbox"
+          className="box"
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
-        />{" "}
-        {t('declaration')}
+        />
+        <p className="paragraph">{t("declaration")}</p>
       </div>
 
-      <button
-        onClick={handleStart}
-        disabled={!checked}
-      >
-        {t('startAssessment')}
-      </button>
+      {/* BUTTON */}
+      <div className="button-wrapper">
+        <button
+          className={`submit ${checked ? "active" : "disabled"}`}
+          onClick={handleStart}
+          disabled={!checked}
+        >
+          {t("startAssessment")}
+        </button>
+      </div>
     </div>
   );
 };

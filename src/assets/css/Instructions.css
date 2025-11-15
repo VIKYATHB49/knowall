@@ -1,3 +1,4 @@
+/* MAIN WRAPPER */
 .content {
   margin: 0;
   padding: 2rem;
@@ -7,12 +8,46 @@
   width: 100%;
 }
 
+/* TITLE */
 .content h2 {
   text-align: left;
   font-size: 28px;
   margin-bottom: 25px;
 }
 
+/* HEADER ROW */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* LANGUAGE DROPDOWN */
+.language-dropdown {
+  width: 160px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+/* RESPONSIVE DROPDOWN */
+@media (max-width: 768px) {
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .language-dropdown {
+    width: 100%;
+    font-size: 15px;
+  }
+}
+
+/* LIST */
 ol {
   padding-left: 20px;
 }
@@ -23,7 +58,7 @@ ol li {
   text-align: justify;
 }
 
-/* Checkbox and Declaration */
+/* DECLARATION ROW */
 .declaration-row {
   display: flex;
   align-items: flex-start;
@@ -46,7 +81,7 @@ ol li {
   width: 100%;
 }
 
-/* Center Start Button */
+/* START BUTTON */
 .button-wrapper {
   width: 100%;
   display: flex;
@@ -66,26 +101,26 @@ ol li {
 }
 
 .submit.disabled {
-  background-color: #A3B3FF;
+  background-color: #a3b3ff;
   cursor: not-allowed;
 }
 
 .submit.active {
-  background-color: #2F4DE0;
+  background-color: #2f4de0;
 }
 
 .submit.active:hover {
   background-color: #1e39b0;
 }
 
-/* Divider */
+/* DIVIDER */
 hr {
   margin-top: 30px;
   border: none;
   border-top: 1px solid #ddd;
 }
 
-/* ✅ Tablet adjustments (≤950px) */
+/* TABLET */
 @media (max-width: 950px) {
   .content {
     padding: 1.5rem;
@@ -100,7 +135,7 @@ hr {
   }
 }
 
-/* ✅ Mobile adjustments (≤768px) */
+/* MOBILE */
 @media (max-width: 768px) {
   .content {
     padding: 1rem;

@@ -1,0 +1,17 @@
+{
+  "noTestData": "No test data found.",
+  "instructionsTitle": "Instructions:",
+  "instructionDate": "This assessment is scheduled on <1>{{date}}</1>.",
+  "instructionTimer": "The countdown timer at the top of the screen will display the remaining time available for you to complete the examination.",
+  "instructionPalette": "The Question Palette displayed on the right side of the screen will show the status of each question using symbols.",
+  "instructionPaletteNav": "You can navigate from one question to another using the Question Palette.",
+  "instructionSaveNext": "Click on <1>Save and Next</1> to save your answer and move to the next question.",
+  "instructionSelect": "To select an answer, click on the corresponding option.",
+  "instructionDeselect": "To deselect an answer, click on the \"Clear Response\" button.",
+  "instructionChange": "To change your answer, click on a different option.",
+  "instructionSectionNav": "After clicking <1>Save and Next</1> on the last question in a section, you’ll move to the next section automatically.",
+  "instructionCoding": "For <1>Coding Questions</1>, click <2>Submit Code</2> or the question will be marked as unattempted.",
+  "instructionTestDetails": "<1>Test Details:</1> {{questions}} Questions | {{marks}} Marks | Duration: {{time}}&nbsp;mins",
+  "declaration": "I have read and understood the instructions. All computer hardware allotted to me is in proper working condition. I declare that I am not in possession of or using any prohibited gadget like a mobile phone, Bluetooth device, or any material not allowed inside the examination hall.",
+  "startAssessment": "Start Assessment"
+}

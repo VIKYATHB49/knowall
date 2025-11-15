@@ -1,90 +1,155 @@
-// File: src/pages/Instruction.jsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../assets/css/Instructions.css';
+import { useTranslation, Trans } from 'react-i18next';
+
+const LanguageSelector = () => {
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (e) => {
+    i18n.changeLanguage(e.target.value);
+  };
+
+  return (
+    <select
+      className="language-dropdown"
+      onChange={changeLanguage}
+      value={i18n.language.split('-')[0]}
+    >
+      <option value="en">English</option>
+      <option value="hi">हिन्दी (Hindi)</option>
+      <option value="te">తెలుగు (Telugu)</option>
+      <option value="ja">日本語 (Japanese)</option>
+    </select>
+  );
+};
 
 const Instruction = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const test = location.state;
   const [checked, setChecked] = useState(false);
+  const { t } = useTranslation();
 
   const handleStart = () => {
     if (checked) {
-      const requestFullScreen = () => {
-        const el = document.documentElement;
-        if (el.requestFullscreen) {
-          return el.requestFullscreen();
-        } else if (el.mozRequestFullScreen) { // Firefox
-          return el.mozRequestFullScreen();
-        } else if (el.webkitRequestFullscreen) { // Chrome, Safari, Opera
-          return el.webkitRequestFullscreen();
-        } else if (el.msRequestFullscreen) { // IE/Edge
-          return el.msRequestFullscreen();
-        }
-        return Promise.resolve();
-      };
+      const el = document.documentElement;
+      const fullscreen =
+        el.requestFullscreen ||
+        el.mozRequestFullScreen ||
+        el.webkitRequestFullscreen ||
+        el.msRequestFullscreen;
 
-      requestFullScreen()
-        .catch((err) => console.warn("Fullscreen request failed:", err))
+      (fullscreen ? fullscreen.call(el) : Promise.resolve())
         .finally(() => {
-          // ✅ Build dynamic exam path from current instructions path
           const basePath = location.pathname.replace('/instructions', '');
-          const examPath = `${basePath}/exam`;
-
-          navigate(examPath, { state: test });
+          navigate(`${basePath}/exam`, { state: test });
         });
     }
   };
 
   if (!test) {
-    return <p style={{ textAlign: 'center', marginTop: '50px' }}>No test data found.</p>;
+    return <p style={{ textAlign: 'center', marginTop: '20px' }}>{t('noTestData')}</p>;
   }
 
   return (
     <div className="content">
-      <h2>Instructions:</h2>
+
+      {/* ONLY DROPDOWN CSS */}
+      <style>{`
+        .header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        }
+
+        .language-dropdown {
+          width: 160px;
+          padding: 8px 12px;
+          font-size: 14px;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          background: #fff;
+        }
+
+        @media (max-width: 768px) {
+          .header-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+
+          .language-dropdown {
+            width: 100%;
+            font-size: 15px;
+          }
+        }
+      `}</style>
+
+      {/* HEADER: Title left + Dropdown right */}
+      <div className="header-row">
+        <h2>{t('instructionsTitle')}</h2>
+        <LanguageSelector />
+      </div>
+
       <ol>
-        <li>This assessment is scheduled on <b>{test.date}</b>.</li>
-        <li>The countdown timer at the top of the screen will display the remaining time available for you to complete the examination.</li>
-        <li>The Question Palette displayed on the right side of the screen will show the status of each question using symbols.</li>
-        <li>You can navigate from one question to another using the Question Palette.</li>
-        <li>Click on <b>Save and Next</b> to save your answer and move to the next question.</li>
-        <li>To select an answer, click on the corresponding option.</li>
-        <li>To deselect an answer, click on the "Clear Response" button.</li>
-        <li>To change your answer, click on a different option.</li>
-        <li>After clicking <b>Save and Next</b> on the last question in a section, you’ll move to the next section automatically.</li>
-        <li>For <b>Coding Questions</b>, click <b>Submit Code</b> or the question will be marked as unattempted.</li>
         <li>
-          <b>Test Details:</b> {test.questions} Questions | {test.marks} Marks | Duration: {test.time}&nbsp;mins
+          <Trans i18nKey="instructionDate" values={{ date: test.date }}>
+            This assessment is scheduled on <b>{test.date}</b>.
+          </Trans>
+        </li>
+        <li>{t('instructionTimer')}</li>
+        <li>{t('instructionPalette')}</li>
+        <li>{t('instructionPaletteNav')}</li>
+        <li>
+          <Trans i18nKey="instructionSaveNext">
+            Click <b>Save and Next</b> to save your answer.
+          </Trans>
+        </li>
+        <li>{t('instructionSelect')}</li>
+        <li>{t('instructionDeselect')}</li>
+        <li>{t('instructionChange')}</li>
+        <li>
+          <Trans i18nKey="instructionSectionNav">
+            After clicking <b>Save and Next</b>, you move to the next section.
+          </Trans>
+        </li>
+        <li>
+          <Trans i18nKey="instructionCoding">
+            For <b>Coding Questions</b>, click <b>Submit Code</b>.
+          </Trans>
+        </li>
+        <li>
+          <Trans
+            i18nKey="instructionTestDetails"
+            values={{
+              questions: test.questions,
+              marks: test.marks,
+              time: test.time
+            }}
+          >
+            <b>Test Details:</b> {test.questions} Questions | {test.marks} Marks | Duration: {test.time} mins
+          </Trans>
         </li>
       </ol>
 
       <hr />
 
-      <div className="declaration-row">
+      <div>
         <input
           type="checkbox"
-          id="myCheckbox"
-          className="box"
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
-        />
-        <label htmlFor="myCheckbox" className="paragraph">
-          I have read and understood the instructions. All computer hardware allotted to me is in proper working condition.
-          I declare that I am not in possession of or using any prohibited gadget like a mobile phone, Bluetooth device, or any material not allowed inside the examination hall.
-        </label>
+        />{" "}
+        {t('declaration')}
       </div>
 
-      <div className="button-wrapper">
-        <button
-          className={`submit ${checked ? 'active' : 'disabled'}`}
-          onClick={handleStart}
-          disabled={!checked}
-        >
-          Start Assessment
-        </button>
-      </div>
+      <button
+        onClick={handleStart}
+        disabled={!checked}
+      >
+        {t('startAssessment')}
+      </button>
     </div>
   );
 };
